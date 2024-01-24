@@ -1,25 +1,85 @@
-<div *ngIf="dataLoaded==false" class="spinner-border" role="status">
+<div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="list-group">
+          <a *ngFor="let car of cars"
+             class="list-group-item"
+             [class.active]="car == currentCar"
+             (click)="setCurrentCar(car)">
+  
+            <li><strong>Araba Adı:</strong> {{ car.carName }}</li>
+            <li><strong>Model Yılı:</strong> {{ car.modelYear }}</li>
+            <li><strong>Günlük Fiyat:</strong> {{ car.dailyPrice }}</li>
+  
+          </a>
+        </div>
+      </div>
+    <div class="col-md-8">
+      <div *ngIf="currentCar; else noCarSelected">
+        <h2>{{ currentCar.carName }} Detayları</h2>
+        <ul>
+          <li><strong>Araba Adı:</strong> {{ currentCar.carName }}</li>
+          <li><strong>Marka Adı:</strong> {{ currentCar.brandName }}</li>
+          <li><strong>Araba Renk:</strong> {{ currentCar.colorName }}</li>
+          <li><strong>Model Yılı:</strong> {{ currentCar.modelYear }}</li>
+          <li><strong>Günlük Fiyat:</strong> {{ currentCar.dailyPrice | currency:'TRY':'symbol':'1.2-2' }}</li>
+          <li><img *ngIf="currentCar.imagePath"  [src]="baseUrl + currentCar.imagePath"
+            class="icon"
+            style="object-fit: cover"
+            width="150"
+            height="75%"/>
+            <img *ngIf="!currentCar.imagePath" [src]="baseUrl + 'defaultCar.jpg'"
+            class="icon"
+            style="object-fit: cover"
+            width="150"
+            height="75%"/> </li>
+          <!-- Diğer araç detaylarını buraya ekleyebilirsiniz -->
+        </ul>
+      </div>
+      <ng-template #noCarSelected>
+        <p>Lütfen bir araç seçin.</p>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<!-- <ul class="list-group">
+    <li [class]="getAllCarClass()" routerLink="/cars" >Tüm Araçlar</li>
+    <li (click)="setCurrentCar(car)" 
+    routerLink="/cars/carsdetail/{{car.carId}}"
+    *ngFor="let car of cars"
+    [class]="getCurrentCarClass(car)">{{car.carName}}</li>
+  </ul>
+
+
+  <h5 *ngIf="currentCar">{{currentCar.carName}} seçtiniz</h5> -->
+<!-- <ul class="list-group">
+    <li [class]="getAllCarClass()" routerLink="/cars" >Tüm Araçlar</li>
+    <li (click)="setCurrentCar(car)" 
+    routerLink="/cars/carsdetail/{{car.carId}}"
+    *ngFor="let car of cars"
+    [class]="getCurrentCarClass(car)">{{car.carName}}</li>
+  </ul>
+
+
+  <h5 *ngIf="currentCar">{{currentCar.carName}} seçtiniz</h5> -->
+
+ 
+ <!-- <div *ngIf="dataLoaded==false" class="spinner-border" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
 <table *ngIf="dataLoaded==true" class="table">
     <thead>
-        <tr>
-            <th>Id</th>
+        <tr>       
             <th>Araç Adı</th>
-            <th>Marka Adı</th>
-            <th>Renk</th>
             <th>Model</th>
             <th>Ücret</th>
-            <th>Resim</th>
         </tr>
     </thead>
     <tr *ngFor="let car of cars">
-        <td>{{car.carId}}</td>
         <td>{{car.carName}}</td>
-        <td>{{car.brandName}}</td>
-        <td>{{car.colorName}}</td>
         <td>{{car.modelYear}}</td>
         <td>{{car.dailyPrice}}</td>
     </tr>
 </table>
 
+  -->

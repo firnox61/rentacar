@@ -1,4 +1,16 @@
-<div *ngIf="dataLoaded==false" class="spinner-border" role="status">
+<ul class="list-group">
+    <li [class]="getAllBrandClass()" routerLink="/cars" >Tüm Araçlar</li>
+    <li (click)="setCurrentBrand(brand)" 
+    routerLink="/cars/brand/{{brand.brandId}}"
+    *ngFor="let brand of brands"
+    [class]="getCurrentBrandClass(brand)">{{brand.brandName}}</li>
+  </ul>
+  <h5 *ngIf="currentBrand">{{currentBrand.brandName}} seçtiniz</h5>
+ 
+  
+  <!-- <ng-template #elseBlock>Content to render when condition is false.</ng-template> -->
+
+<!-- <div *ngIf="dataLoaded==false" class="spinner-border" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
 <table *ngIf="dataLoaded==true" class="table">
@@ -12,4 +24,4 @@
         <td>{{brand.brandId}}</td>
         <td>{{brand.brandName}}</td>
     </tr>
-</table>
+</table> -->
